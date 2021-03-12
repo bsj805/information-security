@@ -23,7 +23,7 @@ a=numb.decode()
 idx=a.find("\x1b[34m")
 endidx=a.find("\x1b[0")
 newstr=a[idx+5:endidx]
-r.sendline(binascii.hexlify(newstr))
+r.sendline(binascii.hexlify(newstr.encode()))
 
 r.recvuntil("string:")
 numb=r.recvuntil("\n")
@@ -31,7 +31,7 @@ a=numb.decode()
 idx=a.find("\x1b[34m")
 endidx=a.find("\x1b[0")
 newstr=a[idx+7:endidx]
-r.sendline(binascii.unhexlify(newstr))
+r.sendline(binascii.unhexlify(newstr.encode()))
 
 r.recvuntil("solve:")
 numb=r.recvuntil("\n")
@@ -40,11 +40,22 @@ idx=a.find("\x1b[34m")
 endidx=a.find("\x1b[0")
 newstr=a[idx+5:endidx]
 plusidx=newstr.find("+")
-a=[:plusidx]
-b=[plusidx+1:]
+a=newstr[:plusidx]
+b=newstr[plusidx+1:]
+a=a.strip()
+b=b.strip()
 
-r.sendline(str(a+b).encode())
+r.sendline(str(int(a)+int(b)).encode())
 
+r.recvuntil("this:")
+numb=r.recvuntil("\n")
+a=numb.decode()
+idx=a.find("\x1b[34m")
+endidx=a.find("\x1b[0")
+newstr=a[idx+5:endidx]
+newstr=newstr.strip()
+print("lv5")
+print(newstr)
 
 
 
