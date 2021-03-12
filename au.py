@@ -56,15 +56,15 @@ newstr=a[idx+5:endidx]
 newstr=newstr.strip()
 print("lv5")
 print(newstr)
-li1=newstr.strip(" ")
+li1=newstr.split(" ")
 li1.sort()
 li2=[]
 li3=[]
 li4=[]
-for i in range(li1):
-	li2.append(str(i))
-for i in range(li2):
-	li3.append(len(li2))
+for i in li1:
+	li2.append(str(i).strip())
+for i in li2:
+	li3.append(len(i))
 count=0
 tempstr=""
 while(len(li3)>0):
@@ -72,11 +72,20 @@ while(len(li3)>0):
 	minidx=-1
 	for idx,val in enumerate(li3):#length array
 		if mini>val:
+			mini=val
 			minidx=idx
 	ma=li3.pop(minidx)
 	mb=li2.pop(minidx)
-	li4.append(ma)
+	li4.append(mb)
 print("sortedlist:",li4)
+li5=[]
+tempstr=""
+for i in li4:
+	li5.append(int(i))
+	tempstr+=i+" "
+tempstr=tempstr[:-1]
+r.sendline(tempstr.encode())
+
 
 			
 
